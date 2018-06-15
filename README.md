@@ -9,4 +9,4 @@ where <env> could be either ontw, test, acc, or prod.
 
 curl localhost:8080
 
-mvn package && java -jar target/gs-spring-boot-0.1.0.jar
+mvn package && java -jar target/statement-0.1.0.jar
