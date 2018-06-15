@@ -1,0 +1,34 @@
+[
+  {
+    "name": "START_NIET",
+    "priority": 1
+  },
+  {
+    "name": "ACCU",
+    "priority": 2
+  },
+  {
+    "name": "LEKKE_BAND",
+    "priority": 3
+  },
+  {
+    "name": "VERKEERDE_BRANDSTOF",
+    "priority": 4
+  },
+  {
+    "name": "SLEUTEL_IN_VOERTUIG",
+    "priority": 5
+  },
+  {
+    "name": "BIJGELUIDEN",
+    "priority": 6
+  },
+  {
+    "name": "CONTROLELAMPJES",
+    "priority": 7
+  },
+  {
+    "name": "ANDERS",
+    "priority": 100
+  }
+]
