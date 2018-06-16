@@ -30,41 +30,29 @@ public class RecordService {
         List<Record> xmlRecords = xmlReader.getRecords(getFilepath(XMLFILE));
 
         List<Record> csvRecords = csvReader.getRecords(getFilepath(CSVFILE));
+        invalidrecords.addAll(getInvalidRecords(xmlRecords));
+        invalidrecords.addAll(getInvalidRecords(csvRecords));
+
+        return invalidrecords;
+    }
+    private List<Record> getInvalidRecords(List<Record> records) {
+        List<Record> invalidrecords = new ArrayList<>();
+
         List<Integer> references = new ArrayList();
-        xmlRecords.stream().forEach(record -> references.add(record.getReference()));
+        records.stream().forEach(record -> references.add(record.getReference()));
         Set<Integer> set = new HashSet<>();
-        Set<Integer> duplicateElements = new HashSet<>();
+        Set<Integer> duplicates = new HashSet<>();
 
         for (Integer element : references) {
             if (!set.add(element)) {
-                duplicateElements.add(element);
+                duplicates.add(element);
             }
         }
-        for (Record record : xmlRecords) {
-            if (duplicateElements.contains(record.getReference())) {
-                invalidrecords.add(record);
-            } else if (set.contains(record.getReference())) {
-                          if ( !Validator.format(record.getEndBalance()) ){
-                                invalidrecords.add(record);
-                          }
-            }
-        }
-
-        List<Integer> csvreferences = new ArrayList();
-        csvRecords.stream().forEach(record -> csvreferences.add(record.getReference()));
-        Set<Integer> setcsv = new HashSet<>();
-        Set<Integer> duplicatecsv = new HashSet<>();
-
-        for (Integer element : csvreferences) {
-            if (!setcsv.add(element)) {
-                duplicatecsv.add(element);
-            }
-        }
-        for (Record record : csvRecords) {
-            if (duplicatecsv.contains(record.getReference())) {
+        for (Record record : records) {
+            if (duplicates.contains(record.getReference())) {
                 invalidrecords.add(record);
             }
-            else if (setcsv.contains(record.getReference())){
+            else if (set.contains(record.getReference())){
                 if(!Validator.format(record.getEndBalance())){
                     invalidrecords.add(record);
                 }
