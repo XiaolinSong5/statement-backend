@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class XmlReaderTest {
-    XmlReader xmlReader= new XmlReader();
+    private XmlReader xmlReader= new XmlReader();
     @Test
     public void testGetRecords() {
         ClassLoader classLoader = getClass().getClassLoader();

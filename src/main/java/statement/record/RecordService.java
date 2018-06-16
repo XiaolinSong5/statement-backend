@@ -26,12 +26,12 @@ public class RecordService {
     private XmlReader xmlReader;
 
     public List<Record> getRecords() {
-        List<Record> invalidrecords = new ArrayList<Record>();
-        List<Record> xmlRecords = xmlReader.getRecords(getFilepath(XMLFILE));
-
-        List<Record> csvRecords = csvReader.getRecords(getFilepath(CSVFILE));
-        invalidrecords.addAll(getInvalidRecords(xmlRecords));
-        invalidrecords.addAll(getInvalidRecords(csvRecords));
+        List<Record> totalrecords = new ArrayList<Record>();
+        totalrecords.addAll(xmlReader.getRecords(getFilepath(XMLFILE)));
+        LOGGER.info("XML records retrieved");
+        totalrecords.addAll(csvReader.getRecords(getFilepath(CSVFILE)));
+        LOGGER.info("CSV records retrieved");
+        List<Record> invalidrecords = getInvalidRecords(totalrecords);
 
         return invalidrecords;
     }
@@ -43,12 +43,13 @@ public class RecordService {
         Set<Integer> set = new HashSet<>();
         Set<Integer> duplicates = new HashSet<>();
 
-        for (Integer element : references) {
+        references.stream().forEach(element ->{
             if (!set.add(element)) {
                 duplicates.add(element);
             }
-        }
-        for (Record record : records) {
+        });
+
+        records.stream().forEach(record -> {
             if (duplicates.contains(record.getReference())) {
                 invalidrecords.add(record);
             }
@@ -57,7 +58,7 @@ public class RecordService {
                     invalidrecords.add(record);
                 }
             }
-        }
+        });
         return invalidrecords;
     }
 

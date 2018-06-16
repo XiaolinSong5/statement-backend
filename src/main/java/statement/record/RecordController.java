@@ -24,16 +24,4 @@ public class RecordController {
         return new ResponseEntity<List<Record>>(recordService.getRecords(), HttpStatus.OK);
     }
 
-    //    @RequestMapping("/")
-//    public @ResponseBody List<Record> getRecords() {
-//        List<Record> rd = recordService.getRecords();
-//        return rd;
-//    }
-//@RequestMapping("/") @ResponseStatus(HttpStatus.OK)
-//ResponseEntity<List<Symptoms>> getAll() {
-//
-//
-//      return new ResponseEntity<>(recordService.findAll(), HttpStatus.OK);
-//    }
-
 }

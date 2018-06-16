@@ -22,7 +22,6 @@ public class CsvReader {
 
         try {
             File inputF = new File(filePath);
-           // File inputF = new ClassPathResource("records.csv").getFile();
             InputStream inputFS = new FileInputStream(inputF);
             BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
             // skip the header of the csv

@@ -1,24 +1,22 @@
 package statement.record.util;
 
-import mockit.Tested;
 import org.junit.Assert;
 import org.junit.Test;
 
 import statement.record.Record;
 
+import java.io.File;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 
 public class CsvReaderTest {
 
-private CsvReader csvReader;
+private CsvReader csvReader = new CsvReader();;
     @Test
     public void testGetRecords() {
-        CsvReader  csvReader = new CsvReader();
-        List<Record> b = csvReader.getRecords("/Users/xiaolinsong/xsdev/statement-backend/src/main/resources/records.csv");
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("records.csv").getFile());
+        List<Record> b = csvReader.getRecords(file.getAbsolutePath());
         Assert.assertNotNull(b);
     }
 }

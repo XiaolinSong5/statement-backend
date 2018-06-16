@@ -23,7 +23,6 @@ public class XmlReader {
         List<Record> records = new ArrayList<>();
         try {
 
-            //File fXmlFile = new ClassPathResource("records.xml").getFile();
            File fXmlFile = new File(filePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
