@@ -14,6 +14,7 @@
   </parent>
   <properties>
     <java.version>1.8</java.version>
+    <jmockit.version>1.25</jmockit.version>
   </properties>
   <dependencies>
     <dependency>
@@ -24,6 +25,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>${jmockit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

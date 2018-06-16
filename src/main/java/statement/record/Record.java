@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class Record {
-    private Long reference;
+    private Integer reference;
     private String description;
     private String accountNumber;
     private String startBalance;
     private String mutation;
     private String endBalance;
 
-    public Long getReference() {
+    public Integer getReference() {
         return reference;
     }
 
-    public void setReference(Long reference) {
+    public void setReference(Integer reference) {
         this.reference = reference;
     }
 

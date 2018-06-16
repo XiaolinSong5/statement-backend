@@ -1,65 +1,54 @@
 package statement.record.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 import statement.record.Record;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+@Component
 public class CsvReader {
-    public static void main(String argv[]) throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader(
-                "/Users/xiaolinsong/dev/statementbackend/src/main/resources/records.csv"));
-        // read file line by line
-        String line = null;
-        Scanner scanner = null;
-        int index = 0;
-        List<Record> empList = new ArrayList<Record>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CsvReader.class);
+    private static final String DEFAULT_SEPARATOR = ",";
+
+    public List<Record> getRecords(String filePath) {
+
+        List<Record> inputList = new ArrayList<>();
+
         try {
-            while ((line = reader.readLine()) != null) {
-                Record emp = new Record();
-                scanner = new Scanner(line);
-                scanner.useDelimiter(",");
-                while (scanner.hasNext()) {
-                    String data = scanner.next();
-                    if (index == 0)
-                        emp.setReference(Long.valueOf(data));
-                    else if (index == 1)
-                        emp.setAccountNumber(data);
-                    else if (index == 2)
-                        emp.setDescription(data);
-                    else if (index == 3)
-                        emp.setStartBalance(data);
-                    else if (index == 4)
-                        emp.setMutation(data);
-                    else if (index == 5)
-                        emp.setEndBalance(data);
-                    else
-                        System.out.println("invalid data::" + data);
-                    index++;
-                }
-                index = 0;
-                empList.add(emp);
-            }
+            File inputF = new File(filePath);
+           // File inputF = new ClassPathResource("records.csv").getFile();
+            InputStream inputFS = new FileInputStream(inputF);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
+            // skip the header of the csv
+            inputList = br.lines().skip(1).map(mapToItem).collect(Collectors.toList());
+            br.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Reading csv file failed", e);
         }
 
-        //close reader
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(empList);
-
+        return inputList;
     }
 
+    private Function<String, Record> mapToItem = (line) -> {
+
+        String[] p = line.split(DEFAULT_SEPARATOR);// a CSV has comma separated lines
+        Record item = new Record();
+
+        item.setReference(Integer.valueOf(p[0]));
+        item.setAccountNumber(p[1]);
+        item.setStartBalance(p[3]);
+        item.setMutation(p[4]);
+        item.setDescription(p[2]);
+        item.setEndBalance(p[5]);
+
+        return item;
+    };
 
 }
 

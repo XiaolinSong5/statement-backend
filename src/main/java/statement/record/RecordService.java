@@ -1,48 +1,81 @@
 package statement.record;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import statement.record.util.CsvReader;
+import statement.record.util.XmlReader;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+
+import java.util.stream.Collectors;
 
 @Service
 public class RecordService {
-    public List<Record> getRecords() {
-        List<Record> rs = new ArrayList<>();
-        Record record = new Record();
-        record.setReference(1L);
-        record.setDescription("record1");
-        Record record2 = new Record();
-        record2.setReference(2L);
-        record2.setDescription("record2");
-        Record record3 = new Record();
-        record3.setReference(3L);
-        record3.setDescription("xiaolinrecord3");
-        rs.add(record);
-        rs.add(record2);
-        rs.add(record3);
-        //Arrays.asList(rs.toArray());
-        return rs;
+        private static final Logger LOGGER = LoggerFactory.getLogger(RecordService.class);
+    private static final String XMLFILE = "records.xml";
+    private static final String CSVFILE = "records.csv";
+    @Autowired
+    private CsvReader csvReader;
+    @Autowired
+    private XmlReader xmlReader;
+
+    public List<Record> getRecords()  {
+        List<Record> a = new ArrayList<Record>();
+
+//        File file = null;
+//         File file1 = null;
+//        try {
+//            file = new ClassPathResource("records.xml").getFile();
+//             file1 = new ClassPathResource("records.csv").getFile();
+//        } catch (IOException e) {
+//           LOGGER.error("Cannot get file", e);
+//        }
+        ClassPathResource res = new ClassPathResource(XMLFILE);
+        File file = new File(res.getPath());
+        List<Record> xmlRecords = xmlReader.getRecords(res.getPath());
+         ClassPathResource res1 = new ClassPathResource(CSVFILE);
+        List<Record> csvRecords = csvReader.getRecords(res1.getPath());
+        List<Integer> references = new ArrayList();
+        xmlRecords.stream().forEach(record -> references.add(record.getReference()));
+        Set<Integer> set = new HashSet<>();
+        Set<Integer> duplicateElements = new HashSet<>();
+
+        for (Integer element : references) {
+            if (!set.add(element)) {
+                duplicateElements.add(element);
+            }
+        }
+        for (Record record : xmlRecords) {
+            if (duplicateElements.contains(record.getReference())) {
+                a.add(record);
+            }
+        }
+
+        List<Integer> csvreferences = new ArrayList();
+        csvRecords.stream().forEach(record -> csvreferences.add(record.getReference()));
+        Set<Integer> setcsv = new HashSet<>();
+        Set<Integer> duplicatecsv = new HashSet<>();
+
+        for (Integer element : csvreferences) {
+            if (!setcsv.add(element)) {
+                duplicatecsv.add(element);
+            }
+        }
+        for (Record record : csvRecords) {
+            if (duplicatecsv.contains(record.getReference())) {
+                a.add(record);
+            }
+        }
+        return a;
     }
 
-    public void setRecords(List<Record> records) {
-        Records = records;
+    private File getFile(String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return new File(classLoader.getResource(fileName).getFile());
     }
-
-    private List<Record> Records = new ArrayList<>();
-
-    private List<Symptoms> symptoms = symptoms();
-
-    public List<Symptoms> findAll() {
-        return Collections.unmodifiableList(symptoms);
-    }
-
-    private static List<Symptoms> symptoms() {
-        List<Symptoms> symptoms = Arrays.asList(Symptoms.values());
-        symptoms.sort(Comparator.comparingInt(Symptoms::getPriority));
-        return symptoms;
-    }
-
-
 }
