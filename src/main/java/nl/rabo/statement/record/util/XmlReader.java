@@ -1,4 +1,4 @@
-package statement.record.util;
+package nl.rabo.statement.record.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import statement.record.Record;
+import nl.rabo.statement.record.Record;
 
 import javax.validation.constraints.NotNull;
 import javax.xml.parsers.DocumentBuilder;

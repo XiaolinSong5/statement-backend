@@ -1,4 +1,4 @@
-package statement.record.util;
+package nl.rabo.statement.record.util;
 
 import javax.validation.constraints.NotNull;
 import java.text.NumberFormat;

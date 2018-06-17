@@ -1,14 +1,14 @@
-package statement.record;
+package nl.rabo.statement.record;
 
 
+import nl.rabo.statement.record.util.CsvReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import statement.record.util.CsvReader;
-import statement.record.util.Validator;
-import statement.record.util.XmlReader;
+import nl.rabo.statement.record.util.Validator;
+import nl.rabo.statement.record.util.XmlReader;
 
 import java.util.ArrayList;
 import java.util.HashSet;

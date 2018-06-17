@@ -1,4 +1,4 @@
-package statement.record;
+package nl.rabo.statement.record;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

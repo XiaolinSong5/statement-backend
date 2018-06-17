@@ -1,4 +1,4 @@
-package statement;
+package nl.rabo.statement;
 import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
@@ -21,10 +21,7 @@ public class Application {
 
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                System.out.println(beanName);
-            }
-
+            Arrays.stream(beanNames).forEach(System.out::println);
         };
     }
 

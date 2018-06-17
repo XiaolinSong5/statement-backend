@@ -25,7 +25,7 @@ Building and running the project requires:
 
 ### Build it and run
 You can build the sources and run with the command:
-mvn package && java -jar target/statement-0.1.0.jar
+mvn package && java -jar target/statement-1.0.jar
 
 After a successful build the executable WAR file is available in the **target** directory
 

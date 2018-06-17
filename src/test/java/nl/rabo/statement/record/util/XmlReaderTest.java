@@ -1,10 +1,10 @@
-package statement.record.util;
+package nl.rabo.statement.record.util;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import statement.record.Record;
+import nl.rabo.statement.record.Record;
 
 import java.io.File;
 import java.util.List;

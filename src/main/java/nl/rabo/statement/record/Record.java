@@ -1,4 +1,4 @@
-package statement.record;
+package nl.rabo.statement.record;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

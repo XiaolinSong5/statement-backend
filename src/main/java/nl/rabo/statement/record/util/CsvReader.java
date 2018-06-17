@@ -1,9 +1,9 @@
-package statement.record.util;
+package nl.rabo.statement.record.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import statement.record.Record;
+import nl.rabo.statement.record.Record;
 
 import javax.validation.constraints.NotNull;
 import java.io.*;

@@ -1,4 +1,4 @@
-package statement.record;
+package nl.rabo.statement.record;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
