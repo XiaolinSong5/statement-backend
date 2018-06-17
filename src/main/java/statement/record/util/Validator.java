@@ -1,18 +1,19 @@
 package statement.record.util;
 
+import javax.validation.constraints.NotNull;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Locale;
 
 public class Validator {
-    public static boolean format(String amount) {
-        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMANY);
+    public static boolean valdateFormat(@NotNull String amount) {
+        double value;
         try {
-            numberFormat.parse(amount);
-            return true;
-        } catch (ParseException e) {
+            value = Double.parseDouble(amount);
+
+        } catch (NumberFormatException e) {
             return false;
         }
-
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("nl", "NL"));
+        return formatter.format(value) != null;
     }
 }

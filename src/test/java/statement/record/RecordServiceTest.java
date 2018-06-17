@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RunWith(SpringRunner.class)
@@ -18,7 +19,7 @@ public class RecordServiceTest {
     private RecordService recordService;
     @Test
     public void getRecords() {
-        List<Record> records = recordService.getRecords();
+        Set<Record> records = recordService.getRecords();
         Assert.assertNotNull(records);
     }
 }

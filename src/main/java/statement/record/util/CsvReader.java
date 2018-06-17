@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import statement.record.Record;
 
+import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.util.*;
 import java.util.function.Function;
@@ -16,7 +17,7 @@ public class CsvReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvReader.class);
     private static final String DEFAULT_SEPARATOR = ",";
 
-    public List<Record> getRecords(String filePath) {
+    public List<Record> getRecords(@NotNull String filePath) {
 
         List<Record> inputList = new ArrayList<>();
 

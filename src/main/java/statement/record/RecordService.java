@@ -25,18 +25,17 @@ public class RecordService {
     @Autowired
     private XmlReader xmlReader;
 
-    public List<Record> getRecords() {
+    public Set<Record> getRecords() {
         List<Record> totalrecords = new ArrayList<Record>();
         totalrecords.addAll(xmlReader.getRecords(getFilepath(XMLFILE)));
         LOGGER.info("XML records retrieved");
         totalrecords.addAll(csvReader.getRecords(getFilepath(CSVFILE)));
         LOGGER.info("CSV records retrieved");
-        List<Record> invalidrecords = getInvalidRecords(totalrecords);
 
-        return invalidrecords;
+        return getInvalidRecords(totalrecords);
     }
-    private List<Record> getInvalidRecords(List<Record> records) {
-        List<Record> invalidrecords = new ArrayList<>();
+    private Set<Record> getInvalidRecords(List<Record> records) {
+        Set<Record> invalidrecords = new HashSet<>();
 
         List<Integer> references = new ArrayList();
         records.stream().forEach(record -> references.add(record.getReference()));
@@ -54,7 +53,7 @@ public class RecordService {
                 invalidrecords.add(record);
             }
             else if (set.contains(record.getReference())){
-                if(!Validator.format(record.getEndBalance())){
+                if(!Validator.valdateFormat(record.getEndBalance())){
                     invalidrecords.add(record);
                 }
             }

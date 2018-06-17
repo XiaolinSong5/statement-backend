@@ -1,9 +1,13 @@
-# Statement Records
+# statement-backend
 
 This is the back end project for the 'Statement Records'. It provides a REST service where RABO bank can request the failed statement records of Customer Statement Processor.
 The application is used by the [statement-front application](http://localhost:4200)
 
 The REST service will provide the failed records information of the Processor.
+There are two validations:
+
+* The transaction reference should be unique
+* the end balance needs to be validated: the value could be displayed in euro Dutch format. For example: € 8,12
 
 The application is written in java 8 and uses spring boot 2.0.2
 
