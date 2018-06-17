@@ -23,7 +23,7 @@ public class RecordController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping("/") @ResponseStatus(HttpStatus.OK)
     ResponseEntity<Set<Record>> getRecords() {
-        return new ResponseEntity<Set<Record>>(recordService.getRecords(), HttpStatus.OK);
+        return new ResponseEntity<>(recordService.getRecords(), HttpStatus.OK);
     }
 
 }
