@@ -4,7 +4,6 @@ package nl.rabo.statement.record;
 import nl.rabo.statement.record.util.CsvReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import nl.rabo.statement.record.util.Validator;
@@ -20,10 +19,13 @@ public class RecordService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordService.class);
     private static final String XMLFILE = "records.xml";
     private static final String CSVFILE = "records.csv";
-    @Autowired
     private CsvReader csvReader;
-    @Autowired
     private XmlReader xmlReader;
+
+    public RecordService(CsvReader csvReader, XmlReader xmlReader) {
+        this.csvReader = csvReader;
+        this.xmlReader = xmlReader;
+    }
 
     public Set<Record> getRecords() {
         List<Record> totalrecords = new ArrayList<Record>();
@@ -38,17 +40,17 @@ public class RecordService {
         Set<Record> invalidrecords = new HashSet<>();
 
         List<Integer> references = new ArrayList();
-        records.stream().forEach(record -> references.add(record.getReference()));
+        records.forEach(record -> references.add(record.getReference()));
         Set<Integer> set = new HashSet<>();
         Set<Integer> duplicates = new HashSet<>();
 
-        references.stream().forEach(element ->{
+        references.forEach(element ->{
             if (!set.add(element)) {
                 duplicates.add(element);
             }
         });
 
-        records.stream().forEach(record -> {
+        records.forEach(record -> {
             if (duplicates.contains(record.getReference())) {
                 invalidrecords.add(record);
             }

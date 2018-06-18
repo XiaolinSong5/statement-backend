@@ -2,8 +2,11 @@ package nl.rabo.statement.record;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public class Record {
+public class Record implements Serializable {
     private Integer reference;
     private String description;
     private String accountNumber;
@@ -57,5 +60,24 @@ public class Record {
 
     public void setEndBalance(String endBalance) {
         this.endBalance = endBalance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Record record = (Record) o;
+        return Objects.equals(reference, record.reference) &&
+                Objects.equals(description, record.description) &&
+                Objects.equals(accountNumber, record.accountNumber) &&
+                Objects.equals(startBalance, record.startBalance) &&
+                Objects.equals(mutation, record.mutation) &&
+                Objects.equals(endBalance, record.endBalance);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(reference, description, accountNumber, startBalance, mutation, endBalance);
     }
 }

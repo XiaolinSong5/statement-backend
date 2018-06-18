@@ -9,11 +9,11 @@ There are two validations:
 * The transaction reference should be unique
 * the end balance needs to be validated: the value could be displayed in euro Dutch format. For example: € 8,12
 
-The application is written in java 8 and uses spring boot 2.0.2
+The application is written in java 8 and uses spring Boot 2.0.2
 
 ## Installing / Getting started
 The project uses Maven to build all sources and run all tests. It is configured as a [Spring Boot](http://projects.spring.io/spring-boot/) application and ultimately delivers an [executable WAR file](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-maven-packaging) that can be run from the command line or deployed into a servlet container (e.g. Tomcat) as usual.
-The most important reason of choosing Spring boot is because of the embedded Tomcat. Application can start up standalone.  It serve not only command line command's but also web pages from the browsers.
+The most important reason of choosing Spring Boot is because of the embedded Tomcat. Application can start up standalone.  It serve not only command line command's but also web pages from the browsers.
 So an external Tomcat server is not necessary.
 
 ### Requirements
