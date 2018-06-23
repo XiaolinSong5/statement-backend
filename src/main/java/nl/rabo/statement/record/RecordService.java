@@ -36,6 +36,9 @@ public class RecordService {
 
         return getInvalidRecords(totalrecords);
     }
+    public List<Record> getXmlrecords() {
+        return xmlReader.getRecords(getFilepath(XMLFILE));
+    }
     private Set<Record> getInvalidRecords(List<Record> records) {
         Set<Record> invalidrecords = new HashSet<>();
 
