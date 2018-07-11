@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:9000")
 public class RecordController {
     private RecordService recordService;
 
@@ -43,5 +43,12 @@ public class RecordController {
                 .findFirst();
 
         return record.get();
+    }
+    @GetMapping(value = "api/sample/data")
+    public @ResponseBody Greeting getGreeting() {
+        Greeting greeting = new Greeting();
+        greeting.setSomeDataForTheFrontend("Greet from Fabian, Xiaolin, Ruurd ...");
+
+        return greeting;
     }
 }
