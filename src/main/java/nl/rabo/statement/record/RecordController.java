@@ -1,9 +1,16 @@
 package nl.rabo.statement.record;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -50,5 +57,51 @@ public class RecordController {
         greeting.setSomeDataForTheFrontend("Greet from Fabian, Xiaolin, Ruurd ...");
 
         return greeting;
+    }
+
+    @GetMapping(value = "api/doc/rpks")
+    public @ResponseBody List<Rpk> getRpks() {
+        List rpks = new ArrayList();
+        Rpk rpk = new Rpk();
+        rpk.setDocname("tecnation");
+        rpk.setDescription("2018 kwartaal 1");
+        rpk.setDocurl("/docs/typerpk/tecnation.pdf");
+        rpks.add(rpk);
+        Rpk rpk2 = new Rpk();
+        rpk2.setDocname("invoice");
+        rpk2.setDescription("2018 kwartaal 2");
+        rpk2.setDocurl("/docs/typerpk/invoice.pdf");
+        rpks.add(rpk2);
+
+
+        return rpks;
+    }
+    @RequestMapping(value = "api/doc/rpk/view/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> getPDFFile(@PathVariable String pdfname)
+            throws IOException {
+
+        ClassPathResource pdfFile = new ClassPathResource(pdfname+ ".pdf");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=" + pdfname);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(pdfFile.getInputStream()));
+    }
+    @RequestMapping(value = "api/doc/rpk/download/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> downloadPDFFile(@PathVariable String pdfname)
+            throws IOException {
+
+        ClassPathResource pdfFile = new ClassPathResource(pdfname + ".pdf");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=" + pdfname);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(pdfFile.getInputStream()));
     }
 }
