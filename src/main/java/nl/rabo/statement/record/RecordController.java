@@ -59,7 +59,7 @@ public class RecordController {
         return greeting;
     }
 
-    @GetMapping(value = "api/doc/rpks")
+    @GetMapping(value = "api/mydocs/rpks")
     public @ResponseBody List<Rpk> getRpks() {
         List rpks = new ArrayList();
         Rpk rpk = new Rpk();
@@ -76,7 +76,7 @@ public class RecordController {
 
         return rpks;
     }
-    @RequestMapping(value = "api/doc/rpk/view/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    @RequestMapping(value = "api/mydocs/rpk/view/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> getPDFFile(@PathVariable String pdfname)
             throws IOException {
 
@@ -90,11 +90,11 @@ public class RecordController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(pdfFile.getInputStream()));
     }
-    @RequestMapping(value = "api/doc/rpk/download/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    @RequestMapping(value = "api/msp/mydocs/rpk/member/download/{pdfname}", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> downloadPDFFile(@PathVariable String pdfname)
             throws IOException {
 
-        ClassPathResource pdfFile = new ClassPathResource(pdfname + ".pdf");
+        ClassPathResource pdfFile = new ClassPathResource("tecnation.pdf");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=" + pdfname);
 
@@ -104,4 +104,15 @@ public class RecordController {
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new InputStreamResource(pdfFile.getInputStream()));
     }
+//    @RequestMapping(value = "/action/{abcd}/{efgh}", method = RequestMethod.GET)
+//    @PreAuthorize("@authorizationService.authorizeMethod(#id)")
+//    public HttpEntity<byte[]> doAction(@PathVariable ObjectType obj, @PathVariable Date date, HttpServletResponse response) throws IOException {
+//        ZipFileType zipFile = service.getFile(obj1.getId(), date);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//        response.setHeader("Content-Disposition", "attachment; filename=" + zipFile.getFileName());
+//
+//        return new HttpEntity<byte[]>(zipFile.getByteArray(), headers);
+//    }
 }
