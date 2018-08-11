@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:9000")
+@CrossOrigin(origins = "http://localhost:9000", exposedHeaders = "Content-Disposition")
 public class RecordController {
     private RecordService recordService;
 
@@ -96,7 +96,7 @@ public class RecordController {
 
         ClassPathResource pdfFile = new ClassPathResource("tecnation.pdf");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=" + pdfname);
+        headers.add("Content-Disposition", "inline; filename=" + pdfname + ".pdf");
 
         return ResponseEntity
                 .ok()
@@ -115,4 +115,6 @@ public class RecordController {
 //
 //        return new HttpEntity<byte[]>(zipFile.getByteArray(), headers);
 //    }
+
+
 }
