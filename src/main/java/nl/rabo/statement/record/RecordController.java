@@ -109,7 +109,7 @@ public class RecordController {
     public ResponseEntity<InputStreamResource> downloadPDFFile()
             throws IOException {
 
-        ClassPathResource pdfFile = new ClassPathResource("bijlagen.zip");
+        ClassPathResource pdfFile = new ClassPathResource("certz.zip");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=file.zip");
 
