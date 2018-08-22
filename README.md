@@ -41,3 +41,8 @@ You can also open a  browser with URL: http://localhost:8080
 
 You should see:
 [{"reference":112806,"description":"Clothes for Willem Dekker","accountNumber":"NL27SNSB0917829871","startBalance":"91.23","mutation":"+15.57","endBalance":"106.8"},{"reference":112806,"description":"Clothes for Richard de Vries","accountNumber":"NL69ABNA0433647324","startBalance":"90.83","mutation":"-10.91","endBalance":"79.92"},{"reference":112806,"description":"Tickets from Richard Bakker","accountNumber":"NL93ABNA0585619023","startBalance":"102.12","mutation":"+45.87","endBalance":"147.99"}]
+
+
+## clone
+If you cann't clone it from github, you must first:
+git config --global http.sslVerify false
